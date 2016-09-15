@@ -9,9 +9,7 @@ class Board
     @width = 9
     @length = 9
     @grid = Array.new (@width) {Array.new(@length) { Tile.new } }
-    render
     populate_bombs(20)
-    render
     populate_numbers
   end
 
@@ -33,7 +31,7 @@ class Board
   def populate_numbers
     @grid.each_with_index do |row,x|
       row.each_with_index do |col,y|
-        self[x,y] = count_adjacent_bombs(x,y) unless self[x,y] == "B"
+        self[x,y] = count_adjacent_bombs(x,y) unless self[x,y].value == "B"
       end
     end
   end
@@ -51,7 +49,7 @@ class Board
   end
 
   def check_direction(row,col)
-    return 1 if self[row,col] == "B"
+    return 1 if self[row,col].value == "B"
     return 0
   end
 
