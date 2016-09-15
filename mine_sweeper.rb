@@ -10,7 +10,7 @@ class MineSweeper
 
   def play
     @board.render
-    while @in_play
+    until over?
       play_turn
     end
   end
@@ -23,13 +23,29 @@ class MineSweeper
 
     if to_do == "o"
       @board[*pos].reveal
-      @in_play = false if @board[*pos].value == "B"
+      if @board[*pos].value == "B"
+        @in_play = false
+        puts "You lose!"
+      end
     elsif to_do == "f"
       @board[*pos].flag
     end
     @board.render
   end
 
+  def over?
+    @board.grid.each do |row|
+      row.each do |tile|
+        if(tile.value != "B" && tile.revealed == false)
+          return false
+        elsif (tile.value == "B" && tile.revealed == true)
+          puts "You lose!"
+          return true
+        end
+      end
+    end
+    true
+  end
 end
 
 MineSweeper.new.play
