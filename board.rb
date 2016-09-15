@@ -9,7 +9,7 @@ class Board
     @width = 9
     @length = 9
     @grid = Array.new (@width) {Array.new(@length) { Tile.new } }
-    populate_bombs(20)
+    populate_bombs(1)
     populate_numbers
   end
 
@@ -45,7 +45,7 @@ class Board
         count += check_direction(dir[0]+row, dir[1]+col)
       end
     end
-    count
+    count.to_s
   end
 
   def check_direction(row,col)
@@ -78,5 +78,40 @@ class Board
     end
   end
 
+  def over?
+    lose? || won?
+  end
 
+  def lose?
+    @grid.each do |row|
+      row.each do |tile|
+        if (tile.value == "B" && tile.revealed == true)
+          puts "You lose!"
+          return true
+        end
+      end
+    end
+    false
+  end
+
+  def won?
+    @grid.each do |row|
+      row.each do |tile|
+        return false if(tile.value != "B" && tile.revealed == false)
+      end
+    end
+    puts "You won!"
+    return true
+  end
+
+  def reveal(x,y)
+    self[x,y].reveal
+
+    if self[x,y].value == "0"
+      DIRECTIONS.each do |pos|
+        row,col = x+pos[0],y+pos[1]
+        reveal(row,col) if within_board?(row,col) && !self[row,col].revealed
+      end
+    end
+  end
 end

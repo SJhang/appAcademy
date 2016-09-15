@@ -13,15 +13,15 @@ class Tile
     elsif @flagged
       return "F"
     else
-      return "$"
+      return "_"
     end
   end
 
   def reveal
-    @revealed = true
+    @revealed = true unless @flagged
   end
 
   def flag
-    @flagged = true
+    @flagged ? @flagged = false : @flagged = true unless @revealed
   end
 end

@@ -22,11 +22,7 @@ class MineSweeper
     to_do = gets.chomp
 
     if to_do == "o"
-      @board[*pos].reveal
-      if @board[*pos].value == "B"
-        @in_play = false
-        puts "You lose!"
-      end
+      @board.reveal(*pos)
     elsif to_do == "f"
       @board[*pos].flag
     end
@@ -34,17 +30,7 @@ class MineSweeper
   end
 
   def over?
-    @board.grid.each do |row|
-      row.each do |tile|
-        if(tile.value != "B" && tile.revealed == false)
-          return false
-        elsif (tile.value == "B" && tile.revealed == true)
-          puts "You lose!"
-          return true
-        end
-      end
-    end
-    true
+    @board.over?
   end
 end
 
