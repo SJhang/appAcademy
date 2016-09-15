@@ -1,4 +1,5 @@
 require_relative 'tile'
+require 'byebug'
 
 class Board
   attr_accessor :grid
@@ -29,8 +30,17 @@ class Board
   def []=(x,y,new_value)
     @grid[x][y].value = new_value
   end
+
+  def render
+    @grid.each do |row|
+      row_string = ""
+      row.each do |tile|
+        row_string << " #{tile.display} "
+      end
+      puts row_string
+    end
+  end
 end
 
 test = Board.new
-test.populate(1)
-p test.grid
+test.render
