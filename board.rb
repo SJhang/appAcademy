@@ -77,7 +77,5 @@ class Board
       puts row_string
     end
   end
-end
 
-test = Board.new
-test.render
+end
