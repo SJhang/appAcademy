@@ -3,7 +3,7 @@ class Tile
 
   def initialize(value = "O")
     @value = value
-    @revealed = false
+    @revealed = true
   end
 
   def display
