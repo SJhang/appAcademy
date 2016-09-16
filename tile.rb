@@ -22,6 +22,6 @@ class Tile
   end
 
   def flag
-    @flagged ? @flagged = false : @flagged = true unless @revealed
+    @flagged = !@flagged unless @revealed
   end
 end

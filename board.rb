@@ -42,13 +42,13 @@ class Board
     DIRECTIONS.each do |dir|
       x,y = dir[0]+row,dir[1]+col
       if within_board?(x,y)
-        count += check_direction(dir[0]+row, dir[1]+col)
+        count += check_spot(dir[0]+row, dir[1]+col)
       end
     end
     count.to_s
   end
 
-  def check_direction(row,col)
+  def check_spot(row,col)
     return 1 if self[row,col].value == "B"
     return 0
   end
